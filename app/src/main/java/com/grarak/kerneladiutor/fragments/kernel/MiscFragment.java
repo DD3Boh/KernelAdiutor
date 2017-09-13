@@ -71,6 +71,9 @@ public class MiscFragment extends RecyclerViewFragment {
         if (Misc.hasArchPower()) {
             archPowerInit(items);
         }
+        if (Misc.hasLongTap()) {
+			longTapInit(items);
+		}
         if (PowerSuspend.supported()) {
             powersuspendInit(items);
         }
@@ -201,6 +204,21 @@ public class MiscFragment extends RecyclerViewFragment {
 
         items.add(archPower);
     }
+
+    private void longTapInit(List<RecyclerViewItem> items) {
+    	SwitchView longTap = new SwitchView();
+    	longTap.setTitle(getString(R.string.long_tap));
+    	longTap.setSummary(getString(R.string.long_tap_summary));
+    	longTap.setChecked(Misc.isLongTapEnabled());
+    	longTap.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+    		@Override
+    		public void onChanged(SwitchView switchView, boolean isChecked) {
+    			Misc.enableLongTap(isChecked, getActivity());
+    			}
+    		});
+			
+			items.add(longTap);
+    	}
 
     private void powersuspendInit(List<RecyclerViewItem> items) {
         if (PowerSuspend.hasMode()) {

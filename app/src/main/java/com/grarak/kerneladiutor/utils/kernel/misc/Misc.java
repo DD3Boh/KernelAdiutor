@@ -38,6 +38,7 @@ public class Misc {
     private static final String DYNAMIC_FSYNC = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
     private static final String GENTLE_FAIR_SLEEPERS = "/sys/kernel/sched/gentle_fair_sleepers";
     private static final String ARCH_POWER = "/sys/kernel/sched/arch_power";
+    private static final String LONG_TAP = "/sys/module/fpc1020_ree/parameters/longtap";
     private static final String TCP_AVAILABLE_CONGESTIONS = "/proc/sys/net/ipv4/tcp_available_congestion_control";
     private static final String HOSTNAME_KEY = "net.hostname";
 
@@ -92,6 +93,17 @@ public class Misc {
 
     public static boolean hasArchPower() {
         return Utils.existFile(ARCH_POWER);
+    }
+
+    public static void enableLongTap(boolean enable, Context context) {
+        run(Control.write(enable ? "Y" : "N", LONG_TAP), LONG_TAP, context);
+    }
+
+    public static boolean isLongTapEnabled() {
+        return Utils.readFile(LONG_TAP).equals("Y");
+    }
+    public static boolean hasLongTap() {
+        return Utils.existFile(LONG_TAP);
     }
 
     public static void enableGentleFairSleepers(boolean enable, Context context) {
