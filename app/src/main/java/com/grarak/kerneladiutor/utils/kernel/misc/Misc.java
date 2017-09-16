@@ -96,11 +96,11 @@ public class Misc {
     }
 
     public static void enableLongTap(boolean enable, Context context) {
-        run(Control.write(enable ? "Y" : "N", LONG_TAP), LONG_TAP, context);
+        run(Control.write(enable ? "1" : "0", LONG_TAP), LONG_TAP, context);
     }
 
     public static boolean isLongTapEnabled() {
-        return Utils.readFile(LONG_TAP).equals("Y");
+        return Utils.readFile(LONG_TAP).equals("1");
     }
     public static boolean hasLongTap() {
         return Utils.existFile(LONG_TAP);
